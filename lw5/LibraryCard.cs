@@ -9,8 +9,14 @@ namespace lw5
     /// </summary>
     public class LibraryCard
     {
-        private delegate string Logger();
+        public delegate string Logger();
+
         Logger log;
+
+        public void RegisterHandler(Logger handler)
+        {
+            log = handler;
+        }
 
         public LibraryCard()
         {

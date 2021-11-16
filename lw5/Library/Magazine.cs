@@ -7,8 +7,14 @@ namespace lw5
     /// </summary>
     public class Magazine: ILibraryItem
     {
-        private delegate string Logger();
+        public delegate string Logger();
+
         Logger log;
+
+        public void RegisterHandler(Logger handler)
+        {
+            log = handler;
+        }
         public string Name { get; set; }
         public Magazine(string name) {
             log += Program.DateTimeNow;

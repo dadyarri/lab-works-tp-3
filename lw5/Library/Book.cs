@@ -7,9 +7,14 @@ namespace lw5
     /// </summary>
     public class Book : ILibraryItem
     {
-        private delegate string Logger();
+        public delegate string Logger();
 
         Logger log;
+
+        public void RegisterHandler(Logger handler)
+        {
+            log = handler;
+        }
 
         public Book(string name, string author)
         {

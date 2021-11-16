@@ -7,8 +7,14 @@
     /// </summary>
     public class LibraryCardItem
     {
-        private delegate string Logger();
+        public delegate string Logger();
+
         Logger log;
+
+        public void RegisterHandler(Logger handler)
+        {
+            log = handler;
+        }
         public LibraryCardItem(ILibraryItem book, BookStatus bookStatus)
         {
             log += Program.DateTimeNow;
