@@ -9,29 +9,24 @@ namespace lw5
     /// </summary>
     public class Reader
     {
-        public delegate string Logger();
+        public delegate void Logger(string message);
 
         Logger log;
 
         public void RegisterHandler(Logger handler)
         {
-            log = handler;
+            log += handler;
+        }
+
+        public void UnregisterHandler(Logger handler)
+        {
+            log -= handler;
         }
 
         public Reader(string name)
         {
-            log += Program.DateTimeNow;
-            log += Program.NameOfMethod;
-
             Name = name;
             Card = new LibraryCard();
-
-            Logger createdLog = () => $"Создан новый читательский элемент читательского билета: {ToString()}";
-            log += createdLog;
-
-            log?.Invoke();
-
-            log -= createdLog;
         }
 
         public string Name { get; set; }
@@ -45,14 +40,10 @@ namespace lw5
         /// <returns>Новый элемент читательского билета</returns>
         public LibraryCardItem TakeBook(ILibraryItem book)
         {
-            Logger takenBookLog = () => $"Взята книга {book}";
-            log += takenBookLog;
+            log($"delegate: Взята книга {book}");
 
             LibraryCardItem item = new LibraryCardItem(book, BookStatus.Taken);
             Card.Books.Add(item);
-
-            log?.Invoke();
-            log -= takenBookLog;
 
             return item;
         }
@@ -63,14 +54,10 @@ namespace lw5
         /// <param name="book">Книга, которую вернул читатель</param>
         public void ReturnBook(ILibraryItem book)
         {
-            Logger returnedBookLog = () => $"Возвращена книга {book}";
-            log += returnedBookLog;
+            log($"delegate: Возвращена книга {book}");
 
             var item = _findTakenBookInLibraryCard(book);
             item.Status = BookStatus.Returned;
-
-            log?.Invoke();
-            log -= returnedBookLog;
         }
 
         /// <summary>
@@ -79,13 +66,8 @@ namespace lw5
         /// <param name="book">Книга, которую вернул читатель</param>
         public void ReturnBook(LibraryCardItem item)
         {
-            Logger returnedBookLog = () => $"Возвращена книга {item}";
-            log += returnedBookLog;
-
             item.Status = BookStatus.Returned;
-
-            log?.Invoke();
-            log -= returnedBookLog;
+            log($"delegate: Возвращена книга {item}");
         }
 
         /// <summary>
@@ -94,14 +76,9 @@ namespace lw5
         /// <param name="book">Книга, которую потерял читатель</param>
         public void LoseBook(ILibraryItem book)
         {
-            Logger loseBookLog = () => $"Утеряна книга {book}";
-            log += loseBookLog;
-
             var item = _findTakenBookInLibraryCard(book);
             item.Status = BookStatus.Lost;
-
-            log?.Invoke();
-            log -= loseBookLog;
+            log($"delegate: Утеряна книга {book}");
         }
 
 
@@ -111,13 +88,8 @@ namespace lw5
         /// <param name="book">Книга, которую потерял читатель</param>
         public void LoseBook(LibraryCardItem item)
         {
-            Logger loseBookLog = () => $"Утеряна книга {item}";
-            log += loseBookLog;
-
             item.Status = BookStatus.Lost;
-
-            log?.Invoke();
-            log -= loseBookLog;
+            log($"delegate: Утеряна книга {item}");
         }
 
         /// <summary>

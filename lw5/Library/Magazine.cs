@@ -7,23 +7,23 @@ namespace lw5
     /// </summary>
     public class Magazine: ILibraryItem
     {
-        public delegate string Logger();
+        public delegate void Logger(string message);
 
         Logger log;
 
         public void RegisterHandler(Logger handler)
         {
-            log = handler;
+            log += handler;
+        }
+
+        public void UnregisterHandler(Logger handler)
+        {
+            log -= handler;
         }
         public string Name { get; set; }
         public Magazine(string name) {
-            log += Program.DateTimeNow;
-            log += Program.NameOfMethod;
 
             Name = name;
-            log += () => $"Создан новый журнал: {ToString()}";
-
-            log?.Invoke();
         }
         public void PrintItem()
         {

@@ -7,24 +7,24 @@
     /// </summary>
     public class LibraryCardItem
     {
-        public delegate string Logger();
+        public delegate void Logger(string message);
 
         Logger log;
 
         public void RegisterHandler(Logger handler)
         {
-            log = handler;
+            log += handler;
         }
+
+        public void UnregisterHandler(Logger handler)
+        {
+            log -= handler;
+        }
+
         public LibraryCardItem(ILibraryItem book, BookStatus bookStatus)
         {
-            log += Program.DateTimeNow;
-            log += Program.NameOfMethod;
-
-            Book = book;
-            Status = bookStatus;
-
-            log += () => $"Создан новый читательский элемент читательского билета: {ToString()}";
-            log?.Invoke();
+           Book = book;
+           Status = bookStatus;
         }
 
         public ILibraryItem Book { get; set; }

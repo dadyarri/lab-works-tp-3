@@ -9,24 +9,23 @@ namespace lw5
     /// </summary>
     public class LibraryCard
     {
-        public delegate string Logger();
+        public delegate void Logger(string message);
 
         Logger log;
 
         public void RegisterHandler(Logger handler)
         {
-            log = handler;
+            log += handler;
+        }
+
+        public void UnregisterHandler(Logger handler)
+        {
+            log -= handler;
         }
 
         public LibraryCard()
         {
-            log += Program.DateTimeNow;
-            log += Program.NameOfMethod;
-
             Books = new List<LibraryCardItem> { };
-
-            log += () => $"Создан новый читательский билет: {ToString()}";
-            log?.Invoke();
         }
 
         public List<LibraryCardItem> Books { get; set; }

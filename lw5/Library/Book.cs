@@ -7,26 +7,24 @@ namespace lw5
     /// </summary>
     public class Book : ILibraryItem
     {
-        public delegate string Logger();
+        public delegate void Logger(string message);
 
         Logger log;
 
         public void RegisterHandler(Logger handler)
         {
-            log = handler;
+            log += handler;
+        }
+
+        public void UnregisterHandler(Logger handler)
+        {
+            log -= handler;
         }
 
         public Book(string name, string author)
         {
-            log += Program.DateTimeNow;
-            log += Program.NameOfMethod;
-
             Name = name;
-            Author = author;
-            
-            log += () => $"Создана новая книга: {ToString()}";
-
-            log?.Invoke();
+            Author = author;  
         }
 
         public string Name { get; set; }
