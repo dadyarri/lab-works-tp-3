@@ -25,14 +25,14 @@ namespace lw5
 
         public LibraryCard()
         {
-            Books = new List<LibraryCardItem> { };
+            Books = new List<LibraryCardItem>();
         }
 
         public List<LibraryCardItem> Books { get; set; }
 
         public override string ToString()
         {
-            return $"<{String.Join(", ", Books)}>";
+            return $"<{string.Join(", ", Books)}>";
         }
     }
 }
