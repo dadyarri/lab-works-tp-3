@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace lw6
+namespace lw7
 {
     /// <summary>
     /// Журнал - наследник класса <c>LibraryItem</c>. Реализует вывод информации для журнала

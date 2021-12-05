@@ -31,7 +31,7 @@ namespace lw6
 
         public string Author { get; set; }
 
-        public void PrintItem()
+        public override void PrintItem()
         {
             Console.WriteLine(ToString());
         }

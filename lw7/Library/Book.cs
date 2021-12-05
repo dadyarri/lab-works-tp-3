@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace lw6
+namespace lw7
 {
     /// <summary>
-    /// Журнал - наследник класса <c>LibraryItem</c>. Реализует вывод информации для журнала
+    /// Книга - наследник класса <c>LibraryItem</c>. Реализует вывод информации для книги и добавляет поле автора
     /// </summary>
-    public class Magazine: LibraryItem
+    public class Book : LibraryItem
     {
         public delegate void Logger(string message);
 
@@ -20,11 +20,17 @@ namespace lw6
         {
             log -= handler;
         }
-        public string Name { get; set; }
-        public Magazine(string name) {
 
+        public Book(string name, string author)
+        {
             Name = name;
+            Author = author;  
         }
+
+        public string Name { get; set; }
+
+        public string Author { get; set; }
+
         public override void PrintItem()
         {
             Console.WriteLine(ToString());
@@ -32,7 +38,7 @@ namespace lw6
 
         public override string ToString()
         {
-            return $"{Name}";
+            return $"{Name} - {Author}";
         }
     }
 }
