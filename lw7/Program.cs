@@ -40,6 +40,7 @@ namespace lw7
             Console.WriteLine($"{DateTimeNow()} [{NameOfMethod()}]: {message}");
         }
 
+
         public static string DateTimeNow()
         {
             return DateTime.Now.ToString(CultureInfo.CurrentCulture);
